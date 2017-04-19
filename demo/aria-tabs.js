@@ -88,6 +88,14 @@
       .hide();
   }
 
+  
+  function checkForSpecialKeys(event) {
+    if (!event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey) {
+      //none is pressed
+      return true;
+    }
+    return false;
+  }
   //-----------------------------------------------
 
 
@@ -184,7 +192,7 @@
         elements = {},
         tabToSelect = '';
 
-      if (!event.shiftKey && !event.ctrlKey && activEl.hasClass(settings.tabBtnClass)) {
+      if (checkForSpecialKeys(event) === true && activEl.hasClass(settings.tabBtnClass)) {
         indexes = getTabsIndexes(activEl);
         elements = tabsGroupsArray[indexes.indexTabsGroup][1];
         switch (key) {
@@ -238,17 +246,6 @@
     selectTab(tabToSelectIndexes, true);
   };
 
-
-  /*
-  methods.destroy = function (tabGroup) {
-  
-  };
-  
-  methods.remove = function (tabGroup) {
-  
-  };
-  */
-
   //PLUGIN
   //-----------------------------------------------
   $.fn.ariaTabs = function (userSettings) {
@@ -261,14 +258,6 @@
     if (userSettings === 'select') {
       methods.select($(this));
     }
-
-    /*
-    if (userSettings === 'destroy') {
-      methods.destroy($(this));
-    }
-    if (userSettings === 'remove') {
-      methods.remove($(this));
-    }*/
   };
 
 }(jQuery));
@@ -276,6 +265,5 @@
 
 $(document).ready(function () {
   'use strict';
-  $('.tab-group').ariaTabs({
-  });
+  $('.tab-group').ariaTabs({});
 });
