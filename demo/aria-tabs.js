@@ -18,7 +18,8 @@
   //-----------------------------------------------
   //set id if element does not have one
   function setId(element, id, i) {
-    if (element.id === undefined || element.id === '' || element.id === null) {
+    var elementId = element.id;
+    if (elementId === undefined || elementId === '' || elementId === null) {
       element.id = id + (i + 1);
     }
   }
@@ -88,7 +89,7 @@
       .hide();
   }
 
-  
+
   function checkForSpecialKeys(event) {
     if (!event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey) {
       //none is pressed
@@ -114,6 +115,7 @@
         tabBtnSelectedClass: 'tab-group__tab-btn_selected',
         tabPanelSelectedClass: 'tab-group__tabpanel_selected',
         tabPanelFadeSpeed: 300,
+        justifyNav: false,
         deepLinking: false
       }, userSettings),
       elements = {
@@ -129,7 +131,8 @@
       tabsArray = [],
       //hash = getUrlHash(),
       i = 0,
-      l = 0;
+      l = 0,
+      liWidth = 0;
 
 
     //set id to tabs group if not set and save id into variable tabsGroupId
@@ -170,6 +173,12 @@
                              ---> [3] Array with tab-buttons's ids
     */
 
+    //justify nav by setting button width
+    if (settings.justifyNav) {
+      liWidth = 100 / l;
+      elements.tabLi.css('width', liWidth + '%');
+    }
+
     //select one tab and hide other on load
     elements.tabBtn.each(function (index) {
       if (index === 0) {
@@ -183,6 +192,7 @@
     elements.tabBtn.on('tab:select click', function () {
       methods.select($(this));
     });
+
 
     //arrow keys navigation
     $(window).unbind('keyup').on('keyup', function (event) {
@@ -202,8 +212,6 @@
             } else {
               tabToSelect = $(elements.tabBtn[(indexes.indexTab - 1)]);
             }
-            tabToSelect.focus();
-            methods.select(tabToSelect);
             break;
           case 39: //right
             if (indexes.indexTab === (indexes.tabsLenght - 1)) {
@@ -211,19 +219,17 @@
             } else {
               tabToSelect = $(elements.tabBtn[(indexes.indexTab + 1)]);
             }
-            tabToSelect.focus();
-            methods.select(tabToSelect);
             break;
           case 36: //home
             tabToSelect = $(elements.tabBtn[0]);
-            tabToSelect.focus();
-            methods.select(tabToSelect);
             break;
           case 35: //end
             tabToSelect = $(elements.tabBtn[(indexes.tabsLenght - 1)]);
-            tabToSelect.focus();
-            methods.select(tabToSelect);
             break;
+        }
+        if (tabToSelect !== '') {
+          tabToSelect.focus();
+          methods.select(tabToSelect);
         }
       }
     });
@@ -231,7 +237,6 @@
     //increment count after every initalisation
     count = count + 1;
   };
-
 
 
   //SELECT TAB
@@ -246,6 +251,8 @@
     selectTab(tabToSelectIndexes, true);
   };
 
+
+
   //PLUGIN
   //-----------------------------------------------
   $.fn.ariaTabs = function (userSettings) {
@@ -254,7 +261,6 @@
         methods.init(userSettings, $(this));
       });
     }
-
     if (userSettings === 'select') {
       methods.select($(this));
     }
@@ -263,7 +269,10 @@
 }(jQuery));
 
 
+
 $(document).ready(function () {
   'use strict';
-  $('.tab-group').ariaTabs({});
+  $('.tab-group').ariaTabs({
+    justifyNav: true
+  });
 });

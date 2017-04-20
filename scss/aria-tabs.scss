@@ -1,0 +1,86 @@
+//IMPORT
+//-----------------------------
+@import 'breakpoints';
+@import 'placeholders/placeholders';
+@import 'css-mixins/css-mixins';
+//-----------------------------
+//VARIABLES
+//Tab group style
+$tabgroupBorder: 0.1rem solid #a51818;
+$tabGroupBorderRadius: 0.5rem;
+$tabGroupMargins: 1rem 0;
+//Nav style
+$navBackgroundColor: #b51c1c;
+//button style
+$btnPadding: 0.5rem 1.5rem;
+$btnBackgroundColor: #b51c1c; 
+$btnColor: #fff;
+//selected button style
+$btnSelectedBackgroundColor: #ffffff; 
+$btnSelectedColor: #690e0e;
+//content style
+$contentPadding: 0.5rem;
+//
+//BLOCK
+.tab-group {
+  border: $tabgroupBorder;
+  border-radius: $tabGroupBorderRadius;
+  margin: $tabGroupMargins;
+}
+//ELEMENTS
+.tab-group__tab-nav {
+  background-color: $navBackgroundColor;
+  @if $tabGroupBorderRadius !=0 {
+    border-top-left-radius: $tabGroupBorderRadius;
+    border-top-right-radius: $tabGroupBorderRadius;
+  }
+}
+.tab-group__tab-ul {
+  @extend %margin-0;
+  @extend %list-style-none;
+  @extend %padding-0;
+  @extend %clearfix;
+}
+.tab-group__tab-li {
+  @extend %float-left;
+  @if $tabGroupBorderRadius !=0 {
+    &:first-child {
+      > .tab-group__tab-btn {
+        border-top-left-radius: $tabGroupBorderRadius
+      }
+    }
+  }
+  @if $tabGroupBorderRadius !=0 {
+    &:last-child {
+      > .tab-group__tab-btn {
+        border-top-right-radius: $tabGroupBorderRadius
+      }
+    }
+  }
+}
+.tab-group__tab-btn {
+  @extend %appearance-none;
+  background-color: $btnBackgroundColor;
+  @extend %border-none;
+  color: $btnColor;
+  padding: $btnPadding;
+  @extend %width-100;
+}
+.tab-group__tabs-cont {
+  //
+}
+.tab-group__tabpanel {
+  //
+}
+.tab-group__tab-content {
+  padding: $contentPadding;
+}
+//
+//MODIFIERS
+.tab-group__tab-btn_selected {
+  background-color: $btnSelectedBackgroundColor;
+  color: $btnSelectedColor;
+}
+.tab-group__tabpanel_selected {
+  //
+}

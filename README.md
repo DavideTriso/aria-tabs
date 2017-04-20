@@ -27,6 +27,7 @@ tabContentRole | document | token | Role of tab content. Accepted values: docume
 tabBtnSelectedClass | tab-group__tab-btn_selected | string | Class added to the button of a selected tab.
 tabPanelSelectedClass | tab-group__tabpanel_selected | string | Class added to the tab-panel of a selected tab.
 tabPanelFadeSpeed | 300 | int (>= 0) | Duration of fade-in animations of a tabpanel.
+justifyNav| false | bool | Make navigation take the full width of the tab-widget by automatically setting the width of each `<li>`in the nav.
 deepLinking | false | bool | Enable deep linking for tabs. **IMPORTANT:** This feature is not yet implemented, but is planned for future versions of the plugin.
 
 ## Usage
