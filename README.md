@@ -13,6 +13,10 @@ jQuery plugin for **accessible** tab-widgets. **WAI ARIA 1.1** compliant.
 
 Developed and tested with jQuery 3.2.1
 
+## Cross-browser tests
+
+* Tested on **Google Chrome 57** / macOS Sierra 10. No issues found.
+
 ## Options
 
 Name | Default | Type | Description
