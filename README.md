@@ -6,6 +6,7 @@ jQuery plugin for **accessible** tab-widgets. **WAI ARIA 1.1** compliant.
 * Only 3KB (minified).
 * SASS/SCSS files.
 * Fully compatible with **t-css-framework**
+* Runs in strict mode.
 
 ## Dependencies
 

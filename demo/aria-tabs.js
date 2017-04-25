@@ -260,8 +260,7 @@
       this.each(function () {
         methods.init(userSettings, $(this));
       });
-    }
-    if (userSettings === 'select') {
+    } else if (userSettings === 'select') {
       methods.select($(this));
     }
   };
