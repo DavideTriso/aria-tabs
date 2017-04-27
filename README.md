@@ -2,9 +2,9 @@
 
 jQuery plugin for **accessible** tab-widgets. **WAI ARIA 1.1** compliant.
 
-* Easy to customize.
+* Easy to customize tanks to a small but usefull set of options.
+* SASS/SCSS files for simple and quick UI customisations.
 * Only 3KB (minified).
-* SASS/SCSS files.
 * Fully compatible with **t-css-framework**
 * Runs in strict mode.
 
@@ -33,7 +33,7 @@ tabBtnSelectedClass | tab-group__tab-btn_selected | string | Class added to the 
 tabPanelSelectedClass | tab-group__tabpanel_selected | string | Class added to the tab-panel of a selected tab.
 tabPanelFadeSpeed | 300 | int (>= 0) | Duration of fade-in animations of a tabpanel.
 justifyNav| false | bool | Make navigation take the full width of the tab-widget by automatically setting the width of each `<li>` in the nav.
-deepLinking | false | bool | Enable deep linking for tabs. **IMPORTANT:** This feature is not yet implemented, but is planned for future versions of the plugin.
+*deepLinking | false | bool | Enable deep linking for tabs. **IMPORTANT:** This feature is not yet implemented, but is planned for future versions of the plugin.
 
 ## Usage
 
@@ -131,3 +131,7 @@ In order to select a tab call **ariaTabs** and pass **'select'** as parameter:
 ```javascript
 $('#my-tab').ariaTabs('select');
 ```
+
+# LICENSE
+
+**FLOSS** - Free/Libre and Open Source Software.
