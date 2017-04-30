@@ -132,8 +132,8 @@ In order to select a tab call **ariaTabs** and pass **'select'** as parameter:
 $('#my-tab').ariaTabs('select');
 ```
 
-# LICENSE
+## LICENSE
 
-Released under the **MIT** License.
+This project is licensed under the terms of the **MIT license**.
 
 See [LICENSE.md]('license') for detailed informations.
