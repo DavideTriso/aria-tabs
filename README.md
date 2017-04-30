@@ -136,4 +136,4 @@ $('#my-tab').ariaTabs('select');
 
 This project is licensed under the terms of the **MIT license**.
 
-See [LICENSE.md]('license') for detailed informations.
+See [LICENSE.md](LICENSE.md) for detailed informations.
