@@ -134,4 +134,6 @@ $('#my-tab').ariaTabs('select');
 
 # LICENSE
 
-**FLOSS** - Free/Libre and Open Source Software.
+Released under the **MIT** License.
+
+See [LICENSE.md]('license') for detailed informations.
