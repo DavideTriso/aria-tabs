@@ -1,38 +1,55 @@
+//================================
 //IMPORT
-//-----------------------------
+//================================
 @import 'breakpoints';
-@import 'placeholders/placeholders';
-@import 'css-mixins/css-mixins';
-//-----------------------------
+@import '01_placeholders/import';
+@import '02_css-mixins/import';
+//================================
 //VARIABLES
+//================================
 //Tab group style
-$tabgroupBorder: 0.1rem solid #a51818;
-$tabGroupBorderRadius: 0.5rem;
-$tabGroupMargins: 1rem 0;
+$ariaTabs--tabGroupPaddings: 1rem 0;
 //Nav style
-$navBackgroundColor: #b51c1c;
+$ariaTabs--navBackgroundColor: #b51c1c;
+$ariaTabs--tabNavBorder: 0.01rem solid #b51c1c;
+$ariaTabs--tabNavBorderRadius: 0.5rem;
 //button style
-$btnPadding: 0.5rem 1.5rem;
-$btnBackgroundColor: #b51c1c; 
-$btnColor: #fff;
+$ariaTabs--btnPadding: 0.5rem 1.5rem;
+$ariaTabs--btnBackgroundColor: #b51c1c; 
+$ariaTabs--btnColor: #fff;
 //selected button style
-$btnSelectedBackgroundColor: #ffffff; 
-$btnSelectedColor: #690e0e;
+$ariaTabs--btnSelectedBackgroundColor: #ffffff; 
+$ariaTabs--btnSelectedColor: #690e0e;
+//Tabpanel style
+$ariaTabs--tabpanelBorder: 0.01rem solid #b51c1c;
+$ariaTabs--tabpanelBorderRadius: 0.5rem;
 //content style
-$contentPadding: 0.5rem;
-//
+$ariaTabs--contentPadding: 0.5rem;
+
+
+
+//================================
+//CSS STYLES
+//================================
+//-------------------------------
 //BLOCK
+//-------------------------------
 .tab-group {
-  border: $tabgroupBorder;
-  border-radius: $tabGroupBorderRadius;
-  margin: $tabGroupMargins;
+  padding: $ariaTabs--tabGroupPaddings;
 }
+//-------------------------------
 //ELEMENTS
+//-------------------------------
 .tab-group__tab-nav {
-  background-color: $navBackgroundColor;
-  @if $tabGroupBorderRadius !=0 {
-    border-top-left-radius: $tabGroupBorderRadius;
-    border-top-right-radius: $tabGroupBorderRadius;
+  background-color: $ariaTabs--navBackgroundColor;
+  @if $ariaTabs--tabNavBorder != ''{
+    border-left: $ariaTabs--tabNavBorder;
+    border-right: $ariaTabs--tabNavBorder;
+    border-top: $ariaTabs--tabNavBorder;
+  }
+  @if $ariaTabs--tabNavBorderRadius !=0 {
+    border-top-left-radius: $ariaTabs--tabNavBorderRadius;
+    border-top-right-radius: $ariaTabs--tabNavBorderRadius;
   }
 }
 .tab-group__tab-ul {
@@ -43,43 +60,52 @@ $contentPadding: 0.5rem;
 }
 .tab-group__tab-li {
   @extend %float-left;
-  @if $tabGroupBorderRadius !=0 {
+  @if $ariaTabs--tabNavBorderRadius !=0 {
     &:first-child {
       > .tab-group__tab-btn {
-        border-top-left-radius: $tabGroupBorderRadius
+        border-top-left-radius: $ariaTabs--tabNavBorderRadius;
       }
     }
   }
-  @if $tabGroupBorderRadius !=0 {
+  @if $ariaTabs--tabNavBorderRadius !=0 {
     &:last-child {
       > .tab-group__tab-btn {
-        border-top-right-radius: $tabGroupBorderRadius
+        border-top-right-radius: $ariaTabs--tabNavBorderRadius;
       }
     }
   }
 }
 .tab-group__tab-btn {
   @extend %appearance-none;
-  background-color: $btnBackgroundColor;
+  background-color: $ariaTabs--btnBackgroundColor;
   @extend %border-none;
-  color: $btnColor;
-  padding: $btnPadding;
+  color: $ariaTabs--btnColor;
+  padding: $ariaTabs--btnPadding;
   @extend %width-100;
 }
 .tab-group__tabs-cont {
   //
 }
 .tab-group__tabpanel {
-  //
+  @if $ariaTabs--tabpanelBorder != ''{
+    border-bottom: $ariaTabs--tabpanelBorder;
+    border-left: $ariaTabs--tabpanelBorder;
+    border-right: $ariaTabs--tabpanelBorder;
+  }
+  @if $ariaTabs--tabpanelBorderRadius !=''{
+    border-bottom-left-radius: $ariaTabs--tabpanelBorderRadius;
+    border-bottom-right-radius: $ariaTabs--tabpanelBorderRadius;
+  }
 }
 .tab-group__tab-content {
-  padding: $contentPadding;
+  padding: $ariaTabs--contentPadding;
 }
-//
+//-------------------------------
 //MODIFIERS
+//-------------------------------
 .tab-group__tab-btn_selected {
-  background-color: $btnSelectedBackgroundColor;
-  color: $btnSelectedColor;
+  background-color: $ariaTabs--btnSelectedBackgroundColor;
+  color: $ariaTabs--btnSelectedColor;
 }
 .tab-group__tabpanel_selected {
   //

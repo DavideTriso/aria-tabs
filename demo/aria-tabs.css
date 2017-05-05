@@ -29,12 +29,13 @@
   clear: both; }
 
 .tab-group {
-  border: 0.1rem solid #a51818;
-  border-radius: 0.5rem;
-  margin: 1rem 0; }
+  padding: 1rem 0; }
 
 .tab-group__tab-nav {
   background-color: #b51c1c;
+  border-left: 0.01rem solid #b51c1c;
+  border-right: 0.01rem solid #b51c1c;
+  border-top: 0.01rem solid #b51c1c;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem; }
 
@@ -47,6 +48,13 @@
   background-color: #b51c1c;
   color: #fff;
   padding: 0.5rem 1.5rem; }
+
+.tab-group__tabpanel {
+  border-bottom: 0.01rem solid #b51c1c;
+  border-left: 0.01rem solid #b51c1c;
+  border-right: 0.01rem solid #b51c1c;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem; }
 
 .tab-group__tab-content {
   padding: 0.5rem; }
