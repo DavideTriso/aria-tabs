@@ -20,20 +20,20 @@ Developed and tested with jQuery 3.2.1
 
 ## Options
 
-Name | Default | Type | Description
------|---------|------|-------------
-tabGroupClass | tab-group | string | Class name of tab group elements.
-tabUlClass | tab-group__tab-ul | string | Class name of tab navigational region.
-tabLiClass | tab-group__tab-li | string | Class name of &lt;li&gt; elements of tab navigational region.
-tabBtnClass | tab-group__tab-btn | string | Class name of tab buttons
-tabPanelClass | tab-group__tabpanel | string | Class name of tabpanels
-tabContentClass | tab-group__tab-content | string | Class name of tab content elements
-tabContentRole | document | token | Role of tab content. Accepted values: document, application. For more information see [https://www.w3.org/TR/wai-aria-1.1/](https://www.w3.org/TR/wai-aria-1.1/).
-tabBtnSelectedClass | tab-group__tab-btn_selected | string | Class added to the button of a selected tab.
-tabPanelSelectedClass | tab-group__tabpanel_selected | string | Class added to the tab-panel of a selected tab.
-tabPanelFadeSpeed | 300 | int (>= 0) | Duration of fade-in animations of a tabpanel.
-justifyNav| false | bool | Make navigation take the full width of the tab-widget by automatically setting the width of each `<li>` in the nav.
-*deepLinking | false | bool | Enable deep linking for tabs. **IMPORTANT:** This feature is not yet implemented, but is planned for future versions of the plugin.
+Name | Default | Type | Description | Required or optional
+-----|---------|------|-------------|----------------------
+tabGroupClass | tab-group | string | Class name of tab group elements. | optional
+tabUlClass | tab-group__tab-ul | string | Class name of tab navigational region. | optional
+tabLiClass | tab-group__tab-li | string | Class name of &lt;li&gt; elements of tab navigational region. | optional
+tabBtnClass | tab-group__tab-btn | string | Class name of tab buttons | optional
+tabPanelClass | tab-group__tabpanel | string | Class name of tabpanels | optional
+tabContentClass | tab-group__tab-content | string | Class name of tab content elements | optional
+tabContentRole | document | token | Role of tab content. Accepted values: document, application. For more information see [https://www.w3.org/TR/wai-aria-1.1/](https://www.w3.org/TR/wai-aria-1.1/). | optional
+tabBtnSelectedClass | tab-group__tab-btn_selected | string | Class added to the button of a selected tab. | optional
+tabPanelSelectedClass | tab-group__tabpanel_selected | string | Class added to the tab-panel of a selected tab. | optional
+tabPanelFadeSpeed | 300 | int (>= 0) | Duration of fade-in animations of a tabpanel. | optional
+justifyNav| false | bool | Make navigation take the full width of the tab-widget by automatically setting the width of each `<li>` in the nav. | optional
+*deepLinking | false | bool | Enable deep linking for tabs. **IMPORTANT:** This feature is not yet implemented, but is planned for future versions of the plugin. | optional
 
 ## Usage
 
