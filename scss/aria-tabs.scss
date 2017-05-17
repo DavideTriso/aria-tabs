@@ -109,9 +109,13 @@ $ariaTabs--contentPadding: 0.5rem;
 }
 //justify tabs with flexbox
 .tab-group__tab-ul_justify {
+  @extend %align-items-stretch;
   @extend %display-flex;
   @extend %flex-wrap-nowrap;
-  > .tab-group__tab-li {
+  .tab-group__tab-li {
     @extend %width-100;
+  }
+  .tab-group__tab-btn {
+    @extend %height-100;
   }
 }

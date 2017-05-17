@@ -1,3 +1,7 @@
+.tab-group__tab-ul_justify {
+  -webkit-align-items: stretch;
+  align-items: stretch; }
+
 .tab-group__tab-btn {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -19,6 +23,9 @@
 .tab-group__tab-li {
   float: left; }
 
+.tab-group__tab-ul_justify .tab-group__tab-btn {
+  height: 100%; }
+
 .tab-group__tab-ul {
   list-style: none; }
 
@@ -28,7 +35,7 @@
 .tab-group__tab-ul {
   padding: 0; }
 
-.tab-group__tab-btn, .tab-group__tab-ul_justify > .tab-group__tab-li {
+.tab-group__tab-btn, .tab-group__tab-ul_justify .tab-group__tab-li {
   width: 100%; }
 
 .tab-group__tab-ul:before, .tab-group__tab-ul:after {
