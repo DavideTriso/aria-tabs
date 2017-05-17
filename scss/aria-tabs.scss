@@ -15,19 +15,16 @@ $ariaTabs--tabNavBorder: 0.01rem solid #b51c1c;
 $ariaTabs--tabNavBorderRadius: 0.5rem;
 //button style
 $ariaTabs--btnPadding: 0.5rem 1.5rem;
-$ariaTabs--btnBackgroundColor: #b51c1c; 
+$ariaTabs--btnBackgroundColor: #b51c1c;
 $ariaTabs--btnColor: #fff;
 //selected button style
-$ariaTabs--btnSelectedBackgroundColor: #ffffff; 
+$ariaTabs--btnSelectedBackgroundColor: #ffffff;
 $ariaTabs--btnSelectedColor: #690e0e;
 //Tabpanel style
 $ariaTabs--tabpanelBorder: 0.01rem solid #b51c1c;
 $ariaTabs--tabpanelBorderRadius: 0.5rem;
 //content style
 $ariaTabs--contentPadding: 0.5rem;
-
-
-
 //================================
 //CSS STYLES
 //================================
@@ -42,7 +39,7 @@ $ariaTabs--contentPadding: 0.5rem;
 //-------------------------------
 .tab-group__tab-nav {
   background-color: $ariaTabs--navBackgroundColor;
-  @if $ariaTabs--tabNavBorder != ''{
+  @if $ariaTabs--tabNavBorder !='' {
     border-left: $ariaTabs--tabNavBorder;
     border-right: $ariaTabs--tabNavBorder;
     border-top: $ariaTabs--tabNavBorder;
@@ -87,12 +84,12 @@ $ariaTabs--contentPadding: 0.5rem;
   //
 }
 .tab-group__tabpanel {
-  @if $ariaTabs--tabpanelBorder != ''{
+  @if $ariaTabs--tabpanelBorder !='' {
     border-bottom: $ariaTabs--tabpanelBorder;
     border-left: $ariaTabs--tabpanelBorder;
     border-right: $ariaTabs--tabpanelBorder;
   }
-  @if $ariaTabs--tabpanelBorderRadius !=''{
+  @if $ariaTabs--tabpanelBorderRadius !='' {
     border-bottom-left-radius: $ariaTabs--tabpanelBorderRadius;
     border-bottom-right-radius: $ariaTabs--tabpanelBorderRadius;
   }
@@ -109,4 +106,12 @@ $ariaTabs--contentPadding: 0.5rem;
 }
 .tab-group__tabpanel_selected {
   //
+}
+//justify tabs with flexbox
+.tab-group__tab-ul_justify {
+  @extend %display-flex;
+  @extend %flex-wrap-nowrap;
+  > .tab-group__tab-li {
+    @extend %width-100;
+  }
 }

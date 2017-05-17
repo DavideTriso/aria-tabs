@@ -115,7 +115,6 @@
         tabBtnSelectedClass: 'tab-group__tab-btn_selected',
         tabPanelSelectedClass: 'tab-group__tabpanel_selected',
         tabPanelFadeSpeed: 300,
-        justifyNav: false,
         deepLinking: false
       }, userSettings),
       elements = {
@@ -173,11 +172,6 @@
                              ---> [3] Array with tab-buttons's ids
     */
 
-    //justify nav by setting button width
-    if (settings.justifyNav) {
-      liWidth = 100 / l;
-      elements.tabLi.css('width', liWidth + '%');
-    }
 
     //select one tab and hide other on load
     elements.tabBtn.each(function (index) {
@@ -272,6 +266,5 @@
 $(document).ready(function () {
   'use strict';
   $('.tab-group').ariaTabs({
-    justifyNav: true
   });
 });

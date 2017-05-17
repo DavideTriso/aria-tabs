@@ -6,6 +6,16 @@
 .tab-group__tab-btn {
   border: none; }
 
+.tab-group__tab-ul_justify {
+  -webkit-display: flex;
+  -ms-display: flex;
+  display: -webkit-flex;
+  display: flex; }
+
+.tab-group__tab-ul_justify {
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap; }
+
 .tab-group__tab-li {
   float: left; }
 
@@ -18,7 +28,7 @@
 .tab-group__tab-ul {
   padding: 0; }
 
-.tab-group__tab-btn {
+.tab-group__tab-btn, .tab-group__tab-ul_justify > .tab-group__tab-li {
   width: 100%; }
 
 .tab-group__tab-ul:before, .tab-group__tab-ul:after {
@@ -28,6 +38,11 @@
 .tab-group__tab-ul:after {
   clear: both; }
 
+/*
+@mixins align-self ($value) {
+  -webkit-align-self: $value;
+  align-self: $value;
+}*/
 .tab-group {
   padding: 1rem 0; }
 
