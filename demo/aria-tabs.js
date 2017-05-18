@@ -265,6 +265,5 @@
 
 $(document).ready(function () {
   'use strict';
-  $('.tab-group').ariaTabs({
-  });
+  $('.tab-group').ariaTabs({});
 });
