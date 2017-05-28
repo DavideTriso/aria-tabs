@@ -104,19 +104,7 @@
   //INIT TABS GROUPS
   //-----------------------------------------------
   methods.init = function (userSettings, tabsGroup) {
-    var settings = $.extend({
-        tabGroupClass: 'tab-group',
-        tabUlClass: 'tab-group__tab-ul',
-        tabLiClass: 'tab-group__tab-li',
-        tabBtnClass: 'tab-group__tab-btn',
-        tabPanelClass: 'tab-group__tabpanel',
-        tabContentClass: 'tab-group__tab-content',
-        tabContentRole: 'document',
-        tabBtnSelectedClass: 'tab-group__tab-btn_selected',
-        tabPanelSelectedClass: 'tab-group__tabpanel_selected',
-        tabPanelFadeSpeed: 300,
-        deepLinking: false
-      }, userSettings),
+    var settings = $.extend({}, $.fn.ariaTabs.defaultSettings, userSettings),
       elements = {
         group: tabsGroup,
         tabUl: tabsGroup.find('.' + settings.tabUlClass),
@@ -257,6 +245,20 @@
     } else if (userSettings === 'select') {
       methods.select($(this));
     }
+  };
+
+
+  $.fn.ariaTabs.defaultSettings = {
+    tabGroupClass: 'tab-group',
+    tabUlClass: 'tab-group__tab-ul',
+    tabLiClass: 'tab-group__tab-li',
+    tabBtnClass: 'tab-group__tab-btn',
+    tabPanelClass: 'tab-group__tabpanel',
+    tabContentClass: 'tab-group__tab-content',
+    tabContentRole: 'document',
+    tabBtnSelectedClass: 'tab-group__tab-btn_selected',
+    tabPanelSelectedClass: 'tab-group__tabpanel_selected',
+    tabPanelFadeSpeed: 300
   };
 
 }(jQuery));
