@@ -17,6 +17,7 @@ Developed and tested with jQuery 3.2.1
 ## Cross-browser tests
 
 * Tested on **Google Chrome 57** / macOS Sierra 10.
+* Tested on **Safari for iOS 10.3.x** / iPhone 5s.
 
 ## Options
 
