@@ -171,13 +171,13 @@
     });
 
     //bind event handlers
-    elements.tabBtn.on('tab:select click', function () {
+    elements.tabBtn.on('click.ariaTab ariaTab:click', function () {
       methods.select($(this));
     });
 
 
     //arrow keys navigation
-    $(window).unbind('keyup').on('keyup', function (event) {
+    $(window).off('keyup.ariaTab').on('keyup.ariaTab', function (event) {
       var key = event.keyCode,
         activEl = $(':focus'),
         indexes = {},
