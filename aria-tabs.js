@@ -1,4 +1,4 @@
-(function ($) {
+(function ($, window) {
   'use strict';
   var tabsGroupsArray = [],
     methods = {},
@@ -20,7 +20,7 @@
   function setId(element, id, i) {
     var elementId = element.id;
     if (elementId === undefined || elementId === '' || elementId === null) {
-      element.id = id + (i + 1);
+      element.id = `${id}${i + 1}`;
     }
   }
   //set class if element does not have it yet
@@ -64,7 +64,7 @@
       .attr(a.tbI, '0');
 
     if (animation) {
-      tabPanel.fadeIn(settings.tabPanelFadeSpeed);
+      tabPanel.stop().fadeIn(settings.tabPanelFadeSpeed);
     } else {
       tabPanel.show();
     }
@@ -118,8 +118,7 @@
       tabsArray = [],
       //hash = getUrlHash(),
       i = 0,
-      l = 0,
-      liWidth = 0;
+      l = 0;
 
 
     //set id to tabs group if not set and save id into variable tabsGroupId
@@ -132,8 +131,8 @@
     //init tabs by setting ids and attributes
     l = elements.tabBtn.length;
     for (i; i < l; i = i + 1) {
-      setId(elements.tabBtn[i], tabsGroupId + '__tab-btn-', i);
-      setId(elements.tabPanel[i], tabsGroupId + '__tabpanel-', i);
+      setId(elements.tabBtn[i], `${tabsGroupId}__tab-btn-`, i);
+      setId(elements.tabPanel[i], `${tabsGroupId}__tabpanel-`, i);
       elements.tabBtn[i].setAttribute(a.aCs, elements.tabPanel[i].id);
       elements.tabPanel[i].setAttribute(a.aLab, elements.tabBtn[i].id);
       elements.tabUl.attr(a.r, 'tablist');
@@ -171,20 +170,19 @@
     });
 
     //bind event handlers
-    elements.tabBtn.on('click.ariaTab ariaTab:click', function () {
+    elements.group.on('click.ariaTab ariaTab:click', '.' + settings.tabBtnClass, function () {
       methods.select($(this));
     });
 
-
-    //arrow keys navigation
-    $(window).off('keyup.ariaTab').on('keyup.ariaTab', function (event) {
+    //keyboard navigation
+    elements.group.on('keydown.ariaTab', '.' + settings.tabBtnClass, function (event) {
       var key = event.keyCode,
         activEl = $(':focus'),
         indexes = {},
         elements = {},
         tabToSelect = '';
 
-      if (checkForSpecialKeys(event) === true && activEl.hasClass(settings.tabBtnClass)) {
+      if (checkForSpecialKeys(event) === true) {
         indexes = getTabsIndexes(activEl);
         elements = tabsGroupsArray[indexes.indexTabsGroup][1];
         switch (key) {
@@ -261,4 +259,4 @@
     tabPanelFadeSpeed: 300
   };
 
-}(jQuery));
+}(jQuery, window));
