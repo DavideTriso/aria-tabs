@@ -1,269 +1,127 @@
-(function ($, window) {
+/*
+MIT License
+
+Copyright (c) 2017 Davide Trisolini
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
+(function ($, window, document) {
   'use strict';
-  var tabsGroupsArray = [],
-    methods = {},
-    count = 0,
+  var pluginName = 'ariaTabs', // the name of the plugin
     a = {
-      aCs: 'aria-controls',
       aHi: 'aria-hidden',
       aSe: 'aria-selected',
+      aCs: 'aria-controls',
       aLab: 'aria-labelledby',
-      r: 'role',
       tbI: 'tabindex',
+      r: 'role',
+
       t: 'true',
       f: 'false'
-    };
-
-  //PRIVATE FUNCTIONS
-  //-----------------------------------------------
-  //set id if element does not have one
-  function setId(element, id, i) {
-    var elementId = element.id;
-    if (elementId === undefined || elementId === '' || elementId === null) {
-      element.id = `${id}${i + 1}`;
-    }
-  }
-  //set class if element does not have it yet
-  function setClass(element, className) {
-    if (!element.hasClass(className)) {
-      element.addClass(className);
-    }
-  }
-
-  function getTabsIndexes(tabBtn) {
-    var i = 0,
-      l = tabsGroupsArray.length,
-      tabBtnId = tabBtn.attr('id'),
-      indexes = {},
-      indexTab = 0;
-
-    for (i; i < l; i = i + 1) {
-      indexTab = tabsGroupsArray[i][3].indexOf(tabBtnId);
-      if (indexTab !== -1) {
-        indexes.indexTabsGroup = i;
-        indexes.indexTab = indexTab;
-        indexes.tabsLenght = tabsGroupsArray[i][3].length;
-        return indexes;
-      }
-    }
-  }
-
-  function selectTab(indexes, animation) {
-    var elements = tabsGroupsArray[indexes.indexTabsGroup][1],
-      settings = tabsGroupsArray[indexes.indexTabsGroup][2],
-      tabPanel = $(elements.tabPanel[indexes.indexTab]);
-
-    //Select tab
-    $(elements.tabBtn[indexes.indexTab])
-      .addClass(settings.tabBtnSelectedClass)
-      .attr(a.aSe, a.t)
-      .attr(a.tbI, '0');
-
-    tabPanel.addClass(settings.tabPanelSelectedClass)
-      .attr(a.aHi, a.f)
-      .attr(a.tbI, '0');
-
-    if (animation) {
-      tabPanel.stop().fadeIn(settings.tabPanelFadeSpeed);
-    } else {
-      tabPanel.show();
-    }
-  }
+    },
+    count = 0;
 
 
 
-  function deselectTab(indexes) {
-    var elements = tabsGroupsArray[indexes.indexTabsGroup][1],
-      settings = tabsGroupsArray[indexes.indexTabsGroup][2],
-      tabPanel = $(elements.tabPanel[indexes.indexTab]);
 
-    //Hide tab
-    $(elements.tabBtn[indexes.indexTab])
-      .removeClass(settings.tabBtnSelectedClass)
-      .attr(a.aSe, a.f)
-      .attr(a.tbI, '-1');
-
-    tabPanel.addClass(settings.tabPanelSelectedClass)
-      .attr(a.aHi, a.t)
-      .attr(a.tbI, '-1')
-      .hide();
-  }
-
-
-  function checkForSpecialKeys(event) {
-    if (!event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey) {
-      //none is pressed
-      return true;
-    }
-    return false;
-  }
-  //-----------------------------------------------
-
-
-  //PLUGIN METHODS
-  //INIT TABS GROUPS
-  //-----------------------------------------------
-  methods.init = function (userSettings, tabsGroup) {
-    var settings = $.extend({}, $.fn.ariaTabs.defaultSettings, userSettings),
-      elements = {
-        group: tabsGroup,
-        tabUl: tabsGroup.find('.' + settings.tabUlClass),
-        tabLi: tabsGroup.find('.' + settings.tabLiClass),
-        tabBtn: tabsGroup.find('.' + settings.tabBtnClass),
-        tabPanel: tabsGroup.find('.' + settings.tabPanelClass),
-        tabContent: tabsGroup.find('.' + settings.tabContentClass)
-      },
-      tabsGroupId = '',
-      tabBtnsIds = [],
-      tabsArray = [],
-      //hash = getUrlHash(),
-      i = 0,
-      l = 0;
-
-
-    //set id to tabs group if not set and save id into variable tabsGroupId
-    setId(elements.group[0], 'tabs-group-', count);
-    tabsGroupId = elements.group.attr('id');
-
-    //set class to tab group if not set
-    setClass(elements.group, settings.tabGroupClass);
-
-    //init tabs by setting ids and attributes
-    l = elements.tabBtn.length;
-    for (i; i < l; i = i + 1) {
-      setId(elements.tabBtn[i], `${tabsGroupId}__tab-btn-`, i);
-      setId(elements.tabPanel[i], `${tabsGroupId}__tabpanel-`, i);
-      elements.tabBtn[i].setAttribute(a.aCs, elements.tabPanel[i].id);
-      elements.tabPanel[i].setAttribute(a.aLab, elements.tabBtn[i].id);
-      elements.tabUl.attr(a.r, 'tablist');
-      elements.tabLi[i].setAttribute(a.r, 'presentation');
-      elements.tabBtn[i].setAttribute(a.r, 'tab');
-      elements.tabPanel[i].setAttribute(a.r, 'tabpanel');
-      elements.tabContent[i].setAttribute(a.r, settings.tabContentRole);
-
-      //push each id of tab btns into array
-      tabBtnsIds.push(elements.tabBtn[i].id);
+  function AriaTabs(element, userSettings) {
+    var self = this;
+    self.settings = $.extend({}, $.fn[pluginName].defaultSettings, userSettings);
+    self.element = $(element); //the tabs group element
+    self.nav = self.element.find('.' + self.settings.navClass); //the nav, container of the tablist
+    self.list = self.element.find('.' + self.settings.listClass); //the list
+    self.panelsContainer = self.element.find('.' + self.settings.panelsContainerClass); //the container of all tabpanels
+    self.elements = {
+      listItems: self.list.find('.' + self.settings.listItemClass), // the list items
+      tabBtns: self.list.find('.' + self.settings.btnClass), //the tab buttons
+      panel: self.panelsContainer.find('.' + self.settings.tabpanelClass),
+      content: self.panelsContainer.find('.' + self.settings.contentClass)
     }
 
-    //save all tabs data into array
-    tabsArray.push(tabsGroupId, elements, settings, tabBtnsIds);
+    //call init
+    self.init();
+  }
 
-    //push array to 1st. level array - tabsGroupsArray
-    tabsGroupsArray.push(tabsArray);
+  // Avoid Plugin.prototype conflicts
+  $.extend(AriaTabs.prototype, {
+    init: function () {
+      var self = this,
+          settings = self.settings,
+          elements = self.elements;
+      
+      //
+      
+    },
+    select: function () {
 
-    //TABS GROUPS ARRAY ARCHITECTURE:
-    /*
-    tabsGroupsArray ---> [i] ---> [0] Id of tab group
-                             ---> [1] Object wih elements
-                             ---> [2] Object with settings
-                             ---> [3] Array with tab-buttons's ids
-    */
+    },
+    deselect: function () {
+
+    },
+    methodCaller: function () {
+
+    }
+  });
 
 
-    //select one tab and hide other on load
-    elements.tabBtn.each(function (index) {
-      if (index === 0) {
-        selectTab(getTabsIndexes($(this)), false);
-      } else {
-        deselectTab(getTabsIndexes($(this)));
+
+
+  // A really lightweight plugin wrapper around the constructor,
+  // preventing against multiple instantiations
+  $.fn[pluginName] = function (userSettings) {
+    return this.each(function () {
+      var self = this;
+      /*
+       * If following conditions matches, then the plugin must be initialsied:
+       * Check if the plugin is instantiated for the first time
+       * Check if the argument passed is an object or undefined (no arguments)
+       */
+      if (!$.data(self, 'plugin_' + pluginName) && (typeof userSettings === 'object' || typeof userSettings === 'undefined')) {
+        $.data(self, 'plugin_' + pluginName, new AriaTabs(self, userSettings));
+      } else if (typeof userSettings === 'string') {
+        $.data(self, 'plugin_' + pluginName).methodCaller(userSettings);
       }
     });
-
-    //bind event handlers
-    elements.group.on('click.ariaTab ariaTab:click', '.' + settings.tabBtnClass, function () {
-      methods.select($(this));
-    });
-
-    //keyboard navigation
-    elements.group.on('keydown.ariaTab', '.' + settings.tabBtnClass, function (event) {
-      var key = event.keyCode,
-        activEl = $(':focus'),
-        indexes = {},
-        elements = {},
-        tabToSelect = '';
-
-      if (checkForSpecialKeys(event) === true) {
-        indexes = getTabsIndexes(activEl);
-        elements = tabsGroupsArray[indexes.indexTabsGroup][1];
-        switch (key) {
-          case 37: //left
-            if (indexes.indexTab === 0) {
-              tabToSelect = $(elements.tabBtn[(indexes.tabsLenght - 1)]);
-            } else {
-              tabToSelect = $(elements.tabBtn[(indexes.indexTab - 1)]);
-            }
-            break;
-          case 39: //right
-            if (indexes.indexTab === (indexes.tabsLenght - 1)) {
-              tabToSelect = $(elements.tabBtn[0]);
-            } else {
-              tabToSelect = $(elements.tabBtn[(indexes.indexTab + 1)]);
-            }
-            break;
-          case 36: //home
-            tabToSelect = $(elements.tabBtn[0]);
-            break;
-          case 35: //end
-            tabToSelect = $(elements.tabBtn[(indexes.tabsLenght - 1)]);
-            break;
-        }
-        if (tabToSelect !== '') {
-          tabToSelect.focus();
-          methods.select(tabToSelect);
-        }
-      }
-    });
-
-    //increment count after every initalisation
-    count = count + 1;
   };
 
 
-  //SELECT TAB
-  methods.select = function (tabBtn) {
-    var tabToSelectIndexes = getTabsIndexes(tabBtn),
-      settings = tabsGroupsArray[tabToSelectIndexes.indexTabsGroup][2],
-      selectedTabIndexes = getTabsIndexes(tabBtn
-        .closest('.' + settings.tabGroupClass)
-        .find('.' + settings.tabBtnSelectedClass));
-
-    deselectTab(selectedTabIndexes);
-    selectTab(tabToSelectIndexes, true);
+  //Define default settings
+  $.fn[pluginName].defaultSettings = {
+    navClass: 'tab-group__tab-nav',
+    listClass: 'tab-group__tab-ul',
+    listItemClass: 'tab-group__tab-li',
+    btnClass: 'tab-group__tab-btn',
+    panelsContainerClass: 'tab-group__tabs-cont',
+    tabpanelClass: 'tab-group__tabpanel',
+    contentClass: 'tab-group__tab-content',
+    contentRole: 'document',
+    btnSelectedClass: 'tab-group__tab-btn_selected',
+    panelSelectedClass: 'tab-group__tabpanel_selected',
+    fadeSpeed: 300,
+    cssTransitions: false
   };
-
-
-
-  //PLUGIN
-  //-----------------------------------------------
-  $.fn.ariaTabs = function (userSettings) {
-    if (typeof userSettings === 'object' || typeof userSettings === 'undefined') {
-      this.each(function () {
-        methods.init(userSettings, $(this));
-      });
-    } else if (userSettings === 'select') {
-      methods.select($(this));
-    }
-  };
-
-
-  $.fn.ariaTabs.defaultSettings = {
-    tabGroupClass: 'tab-group',
-    tabUlClass: 'tab-group__tab-ul',
-    tabLiClass: 'tab-group__tab-li',
-    tabBtnClass: 'tab-group__tab-btn',
-    tabPanelClass: 'tab-group__tabpanel',
-    tabContentClass: 'tab-group__tab-content',
-    tabContentRole: 'document',
-    tabBtnSelectedClass: 'tab-group__tab-btn_selected',
-    tabPanelSelectedClass: 'tab-group__tabpanel_selected',
-    tabPanelFadeSpeed: 300
-  };
-
-}(jQuery, window));
-
-
+}(jQuery, window, document));
 
 $(document).ready(function () {
-  'use strict';
-  $('.tab-group').ariaTabs({});
+  $('tab-group').ariaTabs({
+    contentRole: ['document', 'application', 'document']
+  });
+
 });
