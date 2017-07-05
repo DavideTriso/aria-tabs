@@ -32,28 +32,61 @@ SOFTWARE.
       aLab: 'aria-labelledby',
       tbI: 'tabindex',
       r: 'role',
-
       t: 'true',
       f: 'false'
     },
     count = 0;
 
 
+  //-----------------------------------------
+  //Private functions
+  /*
+   * set id of the element passed along
+   * if the element does not have one
+   * and return the id of the element
+   * If no suffix is passed, then do not set it
+   */
+  function setId(element, idPrefix, idSuffix) {
+    idSuffix = idSuffix !== undefined ? idSuffix : '';
+
+    if (!element.is('[id]')) {
+      element.attr('id', idPrefix + idSuffix);
+    }
+    return element.attr('id');
+  }
 
 
+  /*
+   * Check if any of the four modifiers keys are pressed.
+   */
+  function checkForModifierKeys(event) {
+    if (!event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey) {
+      //none is pressed
+      return true;
+    }
+    return false;
+  }
+
+
+  //-----------------------------------------
+  // The actual plugin constructor
   function AriaTabs(element, userSettings) {
     var self = this;
     self.settings = $.extend({}, $.fn[pluginName].defaultSettings, userSettings);
     self.element = $(element); //the tabs group element
+    self.elementId = setId(self.element, self.settings.tabGroupIdPrefix, count); // the id of the element
     self.nav = self.element.find('.' + self.settings.navClass); //the nav, container of the tablist
     self.list = self.element.find('.' + self.settings.listClass); //the list
     self.panelsContainer = self.element.find('.' + self.settings.panelsContainerClass); //the container of all tabpanels
     self.elements = {
       listItems: self.list.find('.' + self.settings.listItemClass), // the list items
-      tabBtns: self.list.find('.' + self.settings.btnClass), //the tab buttons
+      btn: self.list.find('.' + self.settings.btnClass), //the tab buttons
       panel: self.panelsContainer.find('.' + self.settings.tabpanelClass),
       content: self.panelsContainer.find('.' + self.settings.contentClass)
-    }
+    };
+    self.elementsLenght = self.elements.panel.length; // the number of tabpanels in the tab group
+    self.selectedTab = 0; //save the index of the selected tab
+
 
     //call init
     self.init();
@@ -63,17 +96,212 @@ SOFTWARE.
   $.extend(AriaTabs.prototype, {
     init: function () {
       var self = this,
-          settings = self.settings,
-          elements = self.elements;
-      
-      //
-      
-    },
-    select: function () {
+        settings = self.settings,
+        elements = self.elements,
+        btn = elements.btn,
+        panel = elements.panel;
 
-    },
-    deselect: function () {
+      //Add roles to the groups elements
+      self.nav.attr(a.r, 'tablist');
+      btn.attr(a.r, 'tab');
+      self.list.attr(a.r, 'none presentation');
+      elements.listItems.attr(a.r, 'none presentation');
 
+      /*
+       * We need to check if each tab and each tabpanel has an id,
+       * if not we have to set it with scripting.
+       * The ids of this elements are necessary to expose relationship between this elements
+       * by referencing this in aria-labelledby and aria-controls
+       */
+      btn.each(function (index) {
+        setId(btn.eq(index), self.elementId + '__btn--', count);
+        setId(panel.eq(index), self.elementId + '__panel--', count);
+
+        //reference the tab and tabpanel elements to expose relationship
+        btn.eq(index).attr(a.aCs, panel.eq(index).attr('id'));
+        panel.eq(index).attr(a.aLab, btn.eq(index).attr('id'));
+      });
+
+
+      /*
+       * Set the role of the content of each panel:
+       * More informations about the roles model here: https://www.w3.org/TR/wai-aria-1.1/
+       * Because each panel can have a different role,
+       * the option contentRole accepts both a string or an array of strings,
+       * wich is used to map the role to each panel.
+       * We need to check if an array or a string is passed,
+       * and then set the roles accordingly.
+       */
+      if (typeof settings.contentRole === 'string') {
+        elements.content.attr(a.r, settings.contentRole);
+      } else if (Array.isArray(settings.contentRole)) {
+        elements.content.each(function (index) {
+          $(this).attr(a.r, settings.contentRole[index]);
+        });
+      }
+
+
+      /*
+       * Now we have to init the widget by hiding all panels except one.
+       * We do this by performing a direct call to the hide and show methods.
+       */
+      btn.each(function (index) {
+        if (index > 0) {
+          self.hide(index);
+        } else {
+          self.show(index, false);
+        }
+      });
+
+
+      /*
+       * Bind event handlers on widget buttons.
+       * We use delegated events to improve code performance
+       */
+      self.element.on('click.' + pluginName + '.count', '.' + settings.btnClass, function () {
+        var tabIndex = btn.index($(this));
+        
+        //Select the new tab, only if not yet selected
+        if (tabIndex !== self.selectedTab) {
+          self.toggle(tabIndex, true);
+        }
+      });
+
+
+      /*
+       * Bind keydown event for keyboard navigation.
+       * As before, we use delegated events and namespaces
+       * for the implemantation of keys navigation
+       */
+      self.element.on('keydown.' + pluginName + '.' + count, '.' + settings.btnClass, function (event) {
+        self.keyboardNavigation(event);
+      });
+
+      //increment count by 1
+      count = count + 1;
+    },
+    toggle: function (tabIndex, animate) {
+      var self = this;
+
+      self.hide(self.selectedTab);
+
+      self.show(tabIndex, animate);
+    },
+    keyboardNavigation: function (event) {
+      var self = this,
+        elementsLenght = self.elementsLenght,
+        focussedElementIndex = self.selectedTab, //placeholder variable for the index of the tab button
+        pressedKey = event.keyCode, // the code of the pressed key
+        newTab = 0; // a placeholder for the index of the tab to select
+
+
+      /*
+       * Before performing any action we check if any of the four modifier keys
+       * has been pressed during the keydown event.
+       * If any modifiers keys was pressed, then we interrupt the functions execution.
+       */
+      if (!checkForModifierKeys(event)) {
+        return false;
+      }
+      /*
+       * If no modifeier key was pressed, we can proceed and  retrive
+       8 the index of the new tab to select
+       * by checking the pressed key and the index of the currenty selected tab
+       */
+      switch (pressedKey) {
+        case 37: //left
+          if (focussedElementIndex === 0) {
+            newTab = elementsLenght - 1;
+          } else {
+            newTab = focussedElementIndex - 1;
+          }
+          break;
+        case 39: //right
+          if (focussedElementIndex === (elementsLenght - 1)) {
+            newTab = 0;
+          } else {
+            newTab = focussedElementIndex + 1;
+          }
+          break;
+        case 36: //home
+          newTab = 0;
+          break;
+        case 35: //end
+          newTab = elementsLenght;
+          break;
+        default:
+          newTab = false;
+          break;
+      }
+
+      /*
+       * If the pressed key is one of the navigational key,
+       * then we move focus to the new tab and select it.
+       */
+      if (newTab !== false) {
+        self.elements.btn.eq(newTab).focus();
+        self.toggle(newTab, true);
+      }
+    },
+    select: function (tabIndex) {
+      var self = this,
+        setting = self.settings,
+        elements = self.elements;
+
+      //update classes and attributes on button
+      elements.btn.eq(tabIndex)
+        .addClass(setting.btnSelectedClass)
+        .attr(a.tbI, '0')
+        .attr(a.aSe, a.t);
+
+      //Update classes and attributes on tabpanel
+      elements.panel.eq(tabIndex)
+        .addClass(setting.panelSelectedClass)
+        .attr(a.aHi, a.f);
+
+      //Update selected tab object
+      self.selectedTab = tabIndex;
+    },
+    deselect: function (tabIndex) {
+      var self = this,
+        setting = self.settings,
+        elements = self.elements;
+
+
+      //update classes and attributes on button
+      elements.btn.eq(tabIndex)
+        .removeClass(setting.btnSelectedClass)
+        .attr(a.tbI, '-1')
+        .attr(a.aSe, a.f);
+
+      //Update classes and attributes on tabpanel
+      elements.panel.eq(tabIndex)
+        .removeClass(setting.panelSelectedClass)
+        .attr(a.aHi, a.t);
+    },
+    show: function (tabIndex, animate) {
+      var self = this,
+        fadeSpeed = animate ? self.settings.fadeSpeed : 0;
+
+      //Fade in panel with js, if css transitions are disabled
+      if (!self.settings.cssTransitions) {
+        self.elements.panel.eq(tabIndex)
+          .fadeIn(fadeSpeed);
+      }
+
+      //call select to update classes and attributes
+      self.select(tabIndex);
+    },
+    hide: function (tabIndex) {
+      var self = this;
+
+      //Hide tabpanel if css transitions are disabled
+      if (!self.settings.cssTransitions) {
+        self.elements.panel.eq(tabIndex).hide();
+      }
+
+      //call deselect to update classes and attributes
+      self.deselect(tabIndex);
     },
     methodCaller: function () {
 
@@ -104,6 +332,7 @@ SOFTWARE.
 
   //Define default settings
   $.fn[pluginName].defaultSettings = {
+    tabGroupIdPrefix: 'tab-group--',
     navClass: 'tab-group__tab-nav',
     listClass: 'tab-group__tab-ul',
     listItemClass: 'tab-group__tab-li',
@@ -120,7 +349,7 @@ SOFTWARE.
 }(jQuery, window, document));
 
 $(document).ready(function () {
-  $('tab-group').ariaTabs({
+  $('.tab-group').ariaTabs({
     contentRole: ['document', 'application', 'document']
   });
 
