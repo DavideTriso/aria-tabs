@@ -30,12 +30,14 @@ SOFTWARE.
       aSe: 'aria-selected',
       aCs: 'aria-controls',
       aLab: 'aria-labelledby',
+      aOr: 'aria-orientation',
       tbI: 'tabindex',
       r: 'role',
       t: 'true',
       f: 'false'
     },
-    count = 0;
+    count = 0,
+    win = $(window);
 
 
   //-----------------------------------------
@@ -101,11 +103,19 @@ SOFTWARE.
         btn = elements.btn,
         panel = elements.panel;
 
-      //Add roles to the groups elements
+      //Add roles and attributes to the groups elements
       self.nav.attr(a.r, 'tablist');
       btn.attr(a.r, 'tab');
       self.list.attr(a.r, 'none presentation');
       elements.listItems.attr(a.r, 'none presentation');
+
+      /*
+       * Check value of option vertica and
+       * set aria-orientation vertical, if the tabs are vertically stacked.
+       */
+      if (settings.verticalMode) {
+        self.nav.attr(a.aOr, 'vertical');
+      }
 
       /*
        * We need to check if each tab and each tabpanel has an id,
@@ -160,7 +170,7 @@ SOFTWARE.
        */
       self.element.on('click.' + pluginName + '.count', '.' + settings.btnClass, function () {
         var tabIndex = btn.index($(this));
-        
+
         //Select the new tab, only if not yet selected
         if (tabIndex !== self.selectedTab) {
           self.toggle(tabIndex, true);
@@ -192,8 +202,8 @@ SOFTWARE.
         elementsLenght = self.elementsLenght,
         focussedElementIndex = self.selectedTab, //placeholder variable for the index of the tab button
         pressedKey = event.keyCode, // the code of the pressed key
-        newTab = 0; // a placeholder for the index of the tab to select
-
+        newTab = 0, // a placeholder for the index of the tab to select
+        vertical = self.settings.verticalMode;
 
       /*
        * Before performing any action we check if any of the four modifier keys
@@ -228,6 +238,28 @@ SOFTWARE.
           break;
         case 35: //end
           newTab = elementsLenght;
+          break;
+        case 38: //top
+          if (vertical) { //only if acting in vertical mode
+            if (focussedElementIndex === 0) {
+              newTab = elementsLenght - 1;
+            } else {
+              newTab = focussedElementIndex - 1;
+            }
+          } else {
+            newTab = false;
+          }
+          break;
+        case 40: //bottom
+          if (vertical) { //only if acting in vertical mode
+            if (focussedElementIndex === (elementsLenght - 1)) {
+              newTab = 0;
+            } else {
+              newTab = focussedElementIndex + 1;
+            }
+          } else {
+            newTab = false;
+          }
           break;
         default:
           newTab = false;
@@ -291,6 +323,9 @@ SOFTWARE.
 
       //call select to update classes and attributes
       self.select(tabIndex);
+
+      //trigger custom event on window for authors to listen for
+      win.trigger(pluginName + '.select', [self.element, tabIndex]);
     },
     hide: function (tabIndex) {
       var self = this;
@@ -303,8 +338,51 @@ SOFTWARE.
       //call deselect to update classes and attributes
       self.deselect(tabIndex);
     },
-    methodCaller: function () {
+    methodCaller: function (methodName, methodArg) {
+      /*
+       * This function is the control center for any method call implemented in the plugin.
+       * Because the methods accepts different arguments, the function checks the type of
+       * the passed arguments and performs the needed operations in order to make a function call
+       */
 
+      var self = this;
+
+      if (typeof methodArg !== 'number') {
+        if (typeof methodArg === 'string') {
+          /*
+           * If the user passes a string we assum this is a jQuery selector.
+           * We perform a call to the jQuery function and get the element
+           */
+          methodArg = $(methodArg);
+        }
+
+        if (typeof methodArg === 'object') {
+          /*
+           * If the user passes an object we assum this is a jQuery obejct.
+           * In order to perform a method call,
+           * we need to retrive the index of the passed accordion object.
+           * The passed element must:
+           * - be a single jQuery element object (no collection and non empty),
+           * - be a tab (it must have the tab class),
+           * - must be a child element of the tablist element,
+           */
+          if (methodArg.length === 1 &&
+            methodArg.hasClass(self.settings.btnClass) &&
+            methodArg.closest(self.element).length === 1) {
+            methodArg = self.nav.index(methodArg);
+          }
+        }
+      }
+
+      /*
+       * Now we have the index of the element and can perform the method call:
+       * Currently only toggle can be called as external method.
+       * The only accepted value for methodName is 'select'
+       * We do not use toggle as method name, because this could be confusing for the author
+       */
+      if (methodName === 'select') {
+        self.toggle(methodArg, true);
+      }
     }
   });
 
@@ -313,7 +391,7 @@ SOFTWARE.
 
   // A really lightweight plugin wrapper around the constructor,
   // preventing against multiple instantiations
-  $.fn[pluginName] = function (userSettings) {
+  $.fn[pluginName] = function (userSettings, methodArg) {
     return this.each(function () {
       var self = this;
       /*
@@ -323,8 +401,8 @@ SOFTWARE.
        */
       if (!$.data(self, 'plugin_' + pluginName) && (typeof userSettings === 'object' || typeof userSettings === 'undefined')) {
         $.data(self, 'plugin_' + pluginName, new AriaTabs(self, userSettings));
-      } else if (typeof userSettings === 'string') {
-        $.data(self, 'plugin_' + pluginName).methodCaller(userSettings);
+      } else if (typeof userSettings === 'string' && typeof methodArg !== 'undefined') {
+        $.data(self, 'plugin_' + pluginName).methodCaller(userSettings, methodArg);
       }
     });
   };
@@ -343,6 +421,7 @@ SOFTWARE.
     contentRole: 'document',
     btnSelectedClass: 'tab-group__tab-btn_selected',
     panelSelectedClass: 'tab-group__tabpanel_selected',
+    verticalMode: false,
     fadeSpeed: 300,
     cssTransitions: false
   };
@@ -350,7 +429,15 @@ SOFTWARE.
 
 $(document).ready(function () {
   $('.tab-group').ariaTabs({
-    contentRole: ['document', 'application', 'document']
+    contentRole: ['document', 'application', 'document'],
+    verticalMode: false
   });
 
+
+  $('.tab-group').ariaTabs('select', 1);
+
+
+  $(window).on('ariaTabs.select', function (event, element, index) {
+    console.log(element + '  ' + index);
+  })
 });
