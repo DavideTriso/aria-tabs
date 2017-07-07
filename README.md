@@ -73,10 +73,7 @@ Use following HTML markup to implement a tab widget:
       <div class="tab-group__tabpanel">
         <div class="tab-group__tab-content">
           <h3>TAB 1</h3>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industr
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-          when an unknown printer took a galley of type and scrambled it
-          to make a type specimen book.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           <button type="button">Focus test</button>
         </div>
       </div>
@@ -86,10 +83,7 @@ Use following HTML markup to implement a tab widget:
       <div class="tab-group__tabpanel">
         <div class="tab-group__tab-content">
           <h3>TAB 2</h3>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industr
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-          when an unknown printer took a galley of type and scrambled it
-          to make a type specimen book.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
       </div>
       <!-- TABPANEL END -->
@@ -98,10 +92,7 @@ Use following HTML markup to implement a tab widget:
       <div class="tab-group__tabpanel">
         <div class="tab-group__tab-content">
           <h3>TAB 3</h3>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industr
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-          when an unknown printer took a galley of type and scrambled it
-          to make a type specimen book.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
       </div>
       <!-- TABPANEL END -->
