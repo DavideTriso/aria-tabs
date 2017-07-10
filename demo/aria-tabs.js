@@ -70,12 +70,24 @@ SOFTWARE.
   }
 
 
+  /*
+   *
+   */
+  function checkBreakpoint(win, breakpoint) {
+    if (win.width() >= breakpoint) {
+      return true;
+    }
+    return false;
+  }
+
+
   //-----------------------------------------
   // The actual plugin constructor
   function AriaTabs(element, userSettings) {
     var self = this;
-    self.settings = $.extend({}, $.fn[pluginName].defaultSettings, userSettings);
+
     self.element = $(element); //the tabs group element
+    self.settings = $.extend({}, $.fn[pluginName].defaultSettings, userSettings);
     self.elementId = setId(self.element, self.settings.tabGroupIdPrefix, count); // the id of the element
     self.nav = self.element.find('.' + self.settings.navClass); //the nav, container of the tablist
     self.list = self.element.find('.' + self.settings.listClass); //the list
@@ -83,7 +95,7 @@ SOFTWARE.
     self.elements = {
       listItems: self.list.find('.' + self.settings.listItemClass), // the list items
       btn: self.list.find('.' + self.settings.btnClass), //the tab buttons
-      panel: self.panelsContainer.find('.' + self.settings.tabpanelClass),
+      panel: self.panelsContainer.find('.' + self.settings.panelClass),
       content: self.panelsContainer.find('.' + self.settings.contentClass)
     };
     self.elementsLenght = self.elements.panel.length; // the number of tabpanels in the tab group
@@ -110,8 +122,8 @@ SOFTWARE.
       elements.listItems.attr(a.r, 'none presentation');
 
       /*
-       * Check value of option vertica and
-       * set aria-orientation vertical, if the tabs are vertically stacked.
+       * Check value of option verticalMode and
+       * set aria-orientation to vertical, if verticalMode is enabled
        */
       if (settings.verticalMode) {
         self.nav.attr(a.aOr, 'vertical');
@@ -186,6 +198,11 @@ SOFTWARE.
       self.element.on('keydown.' + pluginName + '.' + count, '.' + settings.btnClass, function (event) {
         self.keyboardNavigation(event);
       });
+
+
+      //trigger custom event on window for authors to listen for
+      win.trigger(pluginName + '.initialised', [self.element]);
+
 
       //increment count by 1
       count = count + 1;
@@ -271,6 +288,7 @@ SOFTWARE.
        * then we move focus to the new tab and select it.
        */
       if (newTab !== false) {
+        event.preventDefault();
         self.elements.btn.eq(newTab).focus();
         self.toggle(newTab, true);
       }
@@ -337,6 +355,10 @@ SOFTWARE.
 
       //call deselect to update classes and attributes
       self.deselect(tabIndex);
+
+
+      //trigger custom event on window for authors to listen for
+      win.trigger(pluginName + '.deselect', [self.element, tabIndex]);
     },
     methodCaller: function (methodName, methodArg) {
       /*
@@ -416,7 +438,7 @@ SOFTWARE.
     listItemClass: 'tab-group__tab-li',
     btnClass: 'tab-group__tab-btn',
     panelsContainerClass: 'tab-group__tabs-cont',
-    tabpanelClass: 'tab-group__tabpanel',
+    panelClass: 'tab-group__tabpanel',
     contentClass: 'tab-group__tab-content',
     contentRole: 'document',
     btnSelectedClass: 'tab-group__tab-btn_selected',
@@ -428,16 +450,28 @@ SOFTWARE.
 }(jQuery, window, document));
 
 $(document).ready(function () {
+  'use strict';
+
+
+  $(window).on('ariaTabs.initialised', function (event, element) {
+    console.log(element + 'init');
+  });
+
   $('.tab-group').ariaTabs({
     contentRole: ['document', 'application', 'document'],
-    verticalMode: false
+    verticalMode: true
   });
 
 
-  $('.tab-group').ariaTabs('select', 1);
-
+  //$('.tab-group').ariaTabs('select', 1);
 
   $(window).on('ariaTabs.select', function (event, element, index) {
-    console.log(element + '  ' + index);
-  })
+    console.log(index);
+  });
+
+
+  $(window).on('ariaTabs.deselect', function (event, element, index) {
+    console.log(index);
+  });
+
 });
