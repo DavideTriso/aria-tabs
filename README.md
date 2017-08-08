@@ -2,10 +2,9 @@
 
 jQuery plugin for **accessible** tab-widgets. **WAI ARIA 1.1** compliant.
 
+* User friendly and accessible
 * Only 3KB (minified).
-* Fully compatible with [**t** css-framework](https://github.com/DavideTriso/t-css-framework)
 * Runs in strict mode.
-* SASS/SCSS files for quick UI customisations.
 
 ## Dependencies
 
@@ -121,7 +120,7 @@ Methods can be called on an initialised tabs widget with following syntax:
 ```javascript
 $('#my-tab-widget').ariaTabs('methodName', methodArgument);
 ```
-The plugin supports foloowing methods: select.
+The plugin supports foloowing methods: toggle.
 
 
 ### Select
@@ -180,10 +179,14 @@ $(window).on('ariaTabs.select', function(event, tabsGroup, index){
 });
 
 ```
-## css
+
+## Using CSS transitions
+
+By default the plugin is configured to use the jQuery methods `fadeIn()`, `fadeOut()` to show/hide tab-panels. Setting the option **cssTransitions** to 'true' will disable the JS animations. This will make possible to implement the transitions with css. In fact, the plugin toggles the classes passed along with the options **btnSelectedClass** and **panelSelectedClass** every time the widget's status is changed.
+
 
 ## LICENSE
 
-This project is licensed under the terms of the **MIT license**.
+**Aria tabs** is licensed under the terms of the **MIT license**.
 
 See [LICENSE.md](LICENSE.md) for detailed informations.

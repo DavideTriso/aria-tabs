@@ -1,81 +1,43 @@
-.tab-group__tab-btn {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none; }
+.tab-group {
+  padding: 1rem 0;
+  font-family: sans-serif; }
 
-.tab-group__tab-btn {
-  border: none; }
-
-.tab-group__tab-ul_justify {
-  -webkit-display: flex;
-  -ms-display: flex;
-  display: -webkit-flex;
-  display: flex; }
-
-.tab-group__tab-ul_justify {
-  -webkit-flex-wrap: nowrap;
-  flex-wrap: nowrap; }
+.tab-group__tab-ul {
+  margin: 0;
+  list-style: none;
+  padding: 0;
+  height: 2.8rem; }
 
 .tab-group__tab-li {
   float: left; }
 
-.tab-group__tab-ul {
-  list-style: none; }
-
-.tab-group__tab-ul {
-  margin: 0; }
-
-.tab-group__tab-ul {
-  padding: 0; }
-
-.tab-group__tab-btn, .tab-group__tab-ul_justify > .tab-group__tab-li {
+.tab-group__tab-btn {
+  background-color: #393939;
+  border: 0.01rem solid #d8d8d8;
+  color: #fff;
+  margin: 0;
+  padding: 1rem 4rem;
   width: 100%; }
 
-.tab-group__tab-ul:before, .tab-group__tab-ul:after {
-  display: table;
-  content: "";
-  line-height: 0; }
-.tab-group__tab-ul:after {
-  clear: both; }
-
-/*
-@mixins align-self ($value) {
-  -webkit-align-self: $value;
-  align-self: $value;
-}*/
-.tab-group {
-  padding: 1rem 0; }
-
-.tab-group__tab-nav {
-  background-color: #b51c1c;
-  border-left: 0.01rem solid #b51c1c;
-  border-right: 0.01rem solid #b51c1c;
-  border-top: 0.01rem solid #b51c1c;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem; }
-
-.tab-group__tab-li:first-child > .tab-group__tab-btn {
-  border-top-left-radius: 0.5rem; }
-.tab-group__tab-li:last-child > .tab-group__tab-btn {
-  border-top-right-radius: 0.5rem; }
-
-.tab-group__tab-btn {
-  background-color: #b51c1c;
-  color: #fff;
-  padding: 0.5rem 1.5rem; }
-
 .tab-group__tabpanel {
-  border-bottom: 0.01rem solid #b51c1c;
-  border-left: 0.01rem solid #b51c1c;
-  border-right: 0.01rem solid #b51c1c;
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem; }
+  border-width: 0.01rem;
+  border-color: #393939;
+  border-style: solid; }
 
 .tab-group__tab-content {
-  padding: 0.5rem; }
+  padding: 3rem 2rem; }
 
 .tab-group__tab-btn_selected {
-  background-color: #ffffff;
-  color: #690e0e; }
+  background-color: #d8d8d8;
+  color: #000; }
+
+.tab-group__tab-ul_justify {
+  align-items: stretch;
+  display: flex;
+  flex-wrap: nowrap; }
+  .tab-group__tab-ul_justify .tab-group__tab-li {
+    width: 100%; }
+  .tab-group__tab-ul_justify .tab-group__tab-btn {
+    height: 100%; }
 
 /*# sourceMappingURL=aria-tabs.css.map */
