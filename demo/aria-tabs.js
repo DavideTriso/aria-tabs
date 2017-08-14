@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
+
 (function ($, window, document) {
   'use strict';
   var pluginName = 'ariaTabs', // the name of the plugin
@@ -201,7 +202,7 @@ SOFTWARE.
 
 
       //trigger custom event on window for authors to listen for
-      win.trigger(pluginName + '.initialised', [self.element]);
+      win.trigger(pluginName + '.initialised', [self]);
 
 
       //increment count by 1
@@ -343,7 +344,7 @@ SOFTWARE.
       self.select(tabIndex);
 
       //trigger custom event on window for authors to listen for
-      win.trigger(pluginName + '.select', [self.element, tabIndex]);
+      win.trigger(pluginName + '.select', [self, tabIndex]);
     },
     hide: function (tabIndex) {
       var self = this;
@@ -358,7 +359,7 @@ SOFTWARE.
 
 
       //trigger custom event on window for authors to listen for
-      win.trigger(pluginName + '.deselect', [self.element, tabIndex]);
+      win.trigger(pluginName + '.deselect', [self, tabIndex]);
     },
     methodCaller: function (methodName, methodArg) {
       /*
@@ -452,7 +453,6 @@ SOFTWARE.
 $(document).ready(function () {
   'use strict';
 
-
   $(window).on('ariaTabs.initialised', function (event, element) {
     console.log(element + 'init');
   });
@@ -462,16 +462,11 @@ $(document).ready(function () {
     verticalMode: true
   });
 
-
-  //$('.tab-group').ariaTabs('select', 1);
-
   $(window).on('ariaTabs.select', function (event, element, index) {
     console.log(index);
   });
 
-
   $(window).on('ariaTabs.deselect', function (event, element, index) {
     console.log(index);
   });
-
 });

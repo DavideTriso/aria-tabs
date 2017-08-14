@@ -150,14 +150,14 @@ The plugin triggers following events:
 
 ### ariaTabs.initialised
 
-This event is triggered on window and returns the tabs's group object as arguments.
+This event is triggered on window and returns the tabs's group data object as arguments.
 
 ```javascript
 
 //listen for ariaTabs.initialised
 $(window).on('ariaTabs.initialised', function(event, tabsGroup){
   //When a tab's group is initialised, perform an action
-  tabsGroup.addClass('aria-tabs_initialised');
+  tabsGroup.element.addClass('aria-tabs_initialised');
 });
 
 //Initialise the tab's groups
@@ -168,14 +168,14 @@ $('.tabs-group').ariaTabs();
 
 ### ariaTabs.select and ariaTabs.deselect
 
-This events are also triggered on window and returns the tabs's group object and the index o the selected/deselected tab as arguments.
+This events are also triggered on window and returns the tabs's group data object and the index o the selected/deselected tab as arguments.
 
 ```javascript
 
 //listen for ariaTabs.select
 $(window).on('ariaTabs.select', function(event, tabsGroup, index){
   //perform an action
-  console.log(tabsGroup + ' ' + index);
+  console.log(tabsGroup.element + ' ' + index);
 });
 
 ```
