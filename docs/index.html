@@ -4,13 +4,45 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tabs example</title> 
+  <title>Aria-tabs demo</title>
   <link rel="stylesheet" type="text/css" href="aria-tabs.css">
+  <style>
+    body {
+      max-width: 1000px;
+      margin: auto;
+      font-family: sans-serif;
+    }
+    
+    .btn {
+      display: block;
+      max-width: 300px;
+      text-align: center;
+      text-decoration: none;
+      background-color: #6216c9;
+      color: #fff;
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid #510cad;
+      margin: 40px auto;
+    }
+    
+    .btn:hover,
+    .btn:focus {
+      background-color: #510cad;
+    }
+    
+    .btn:avtive {
+      background-color: #6216c9;
+    }
+
+  </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="aria-tabs.js"></script>
 </head>
 
 <body>
+  <h1>Aria tabs</h1>
+  <h2>Demo 1</h2>
   <div class="tab-group">
     <nav class="tab-group__tab-nav">
       <ul class="tab-group__tab-ul tab-group__tab-ul_justify">
@@ -23,7 +55,7 @@
         <li class="tab-group__tab-li">
           <button type="button" class="tab-group__tab-btn">tab 3</button>
         </li>
-      </ul> 
+      </ul>
     </nav>
     <div class="tab-group__tabs-cont">
       <div class="tab-group__tabpanel">
@@ -47,6 +79,7 @@
       </div>
     </div>
   </div>
+  <h2>Demo 2</h2>
   <div class="tab-group">
     <nav class="tab-group__tab-nav">
       <ul class="tab-group__tab-ul">
@@ -82,6 +115,8 @@
       </div>
     </div>
   </div>
+  <a href="https://github.com/DavideTriso/aria-tabs" class="btn">Check documentation</a>
+
 </body>
 
 </html>

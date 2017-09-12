@@ -1,8 +1,8 @@
 # ARIA TABS
 
-jQuery plugin for **accessible** tab-widgets. **WAI ARIA 1.1** compliant.
+jQuery plugin for **user-friendly** and **accessible** tab-widgets. **WAI ARIA 1.1** compliant. [Go to demo page](https://davidetriso.github.io/aria-tabs/).
 
-* User friendly and accessible
+* User-friendly and accessible
 * Only 3KB (minified).
 * Runs in strict mode.
 * Compatible with amd and require.js
