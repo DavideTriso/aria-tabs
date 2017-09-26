@@ -20,28 +20,28 @@ Developed and tested with jQuery 3.2.1
 
 ## Options
 
-Name | Default | Type | Description 
+Name | Default | Type | Description
 -----|---------|------|-------------
 tabGroupIdPrefix | tab-group-- | string | Prefix used to generate the IDs of tab groups
 navClass | tab-group__tab-nav | string | Class of a the tab nav element (the class is used from the plugin to select the element)
-listClass | tab-group__tab-ul | string | Class of a the tablist `<ul>` element (the class is used from the plugin to select the element)
+listClass | tab-group__tab-ul | string | Class of a the tab-list `<ul>` element (the class is used from the plugin to select the element)
 listItemClass | tab-group__tab-li | string | Class of a tab `<li>` element (the class is used from the plugin to select the elements)
 btnClass | tab-group__tab-btn | string | Class of a button acting as a tab (the class is used from the plugin to select the elements)
-panelsContainerClass | tab-group__tabs-cont | string | Class of the element acting as the tabpanel's contianer (the class is used from the plugin to select the elements)
-panelClass | tab-group__tabpanel | string | Class of the tabpanels (the class is used from the plugin to select the elements)
-contentClass | tab-group__tab-content | string | Class of the direct child of each tabpane, wrapper of the tabpanel content (the class is used from the plugin to select the elements)
+panelsContainerClass | tab-group__tabs-cont | string | Class of the element acting as the tab-panel's container (the class is used from the plugin to select the elements)
+panelClass | tab-group__tabpanel | string | Class of the tab-panels (the class is used from the plugin to select the elements)
+contentClass | tab-group__tab-content | string | Class of the direct child of each tab-panel, wrapper of the tab-panel content (the class is used from the plugin to select the elements)
 btnSelectedClass | tab-group__tab-btn_selected | string | Class added to a tab when selected
-panelSelectedClass | tab-group__tabpanel_selected | string | Class added to a tabpanel when selected
-contentRole | document | token, array of tokens | Role of tabpanels's content. Accepted values: document, application. For more information see [https://www.w3.org/TR/wai-aria-1.1/](https://www.w3.org/TR/wai-aria-1.1/). To set different roles on each tabpanel's content element, pass an array of tokens. 
-fadeSpeed | 300 | int (>= 0) | Speed of the fade-in animation of a tabpanel.
-cssTransitions | false | bool | Use css transitions to show and hide a tabpanel instead of jQuery fade animations. Read section 'Using CSS transitions' for more informations.
-verticalMode | false | bool | Enable vertial mode for tablist: set `aria-orientation` to `vertical`and enable navigation with up and down arrow keys. (Use css to vertically stack tabs).
+panelSelectedClass | tab-group__tabpanel_selected | string | Class added to a tab-panel when selected
+contentRole | document | token, array of tokens | Role of tab-panels's content. Accepted values: document, application. For more information see [https://www.w3.org/TR/wai-aria-1.1/](https://www.w3.org/TR/wai-aria-1.1/). To set different roles on each tab-panel's content element, pass an array of tokens.
+fadeSpeed | 300 | int (>= 0) | Speed of the fade-in animation of a tab-panel.
+cssTransitions | false | bool | Use css transitions to show and hide a tab-panel instead of jQuery fade animations. Read section 'Using CSS transitions' for more informations.
+verticalMode | false | bool | Enable vertical mode for tab-list: set `aria-orientation` to `vertical`and enable navigation with up and down arrow keys. (Use css to vertically stack tabs).
 
 
 ## Usage
 
 1. Include the JS script **aria-tabs.js** - or the minified production script **aria-tabs.min.js** - in the head or the body of your HTML file.
-2. Include the CSS file  **aria-tabs.css** in the head of your HTML file or include the SCSS files in your project. 
+2. Include the CSS file  **aria-tabs.css** in the head of your HTML file or include the SCSS files in your project.
 3. Initialise the widget within an inline script tag, or in an external JS file.
 
 
@@ -52,7 +52,7 @@ Use following HTML markup to implement a tab widget:
 
 ```html
   <div class="tab-group">
-  
+
     <!-- TAB NAVIGATION -->
     <nav class="tab-group__tab-nav">
       <ul class="tab-group__tab-ul">
@@ -67,10 +67,10 @@ Use following HTML markup to implement a tab widget:
         </li>
       </ul>
     </nav>
-    
+
     <!-- TABPANEL CONTAINER -->
     <div class="tabs-group__tabs-cont">
-    
+
       <!-- TABPANEL BEGIN -->
       <div class="tab-group__tabpanel">
         <div class="tab-group__tab-content">
@@ -80,7 +80,7 @@ Use following HTML markup to implement a tab widget:
         </div>
       </div>
       <!-- TABPANEL END -->
-      
+
       <!-- TABPANEL BEGIN -->
       <div class="tab-group__tabpanel">
         <div class="tab-group__tab-content">
@@ -89,7 +89,7 @@ Use following HTML markup to implement a tab widget:
         </div>
       </div>
       <!-- TABPANEL END -->
-      
+
       <!-- TABPANEL BEGIN -->
       <div class="tab-group__tabpanel">
         <div class="tab-group__tab-content">
@@ -98,7 +98,7 @@ Use following HTML markup to implement a tab widget:
         </div>
       </div>
       <!-- TABPANEL END -->
-      
+
     </div>
   </div>
 ```
@@ -121,7 +121,7 @@ Methods can be called on an initialised tabs widget with following syntax:
 ```javascript
 $('#my-tab-widget').ariaTabs('methodName', methodArgument);
 ```
-The plugin supports foloowing methods: toggle.
+The plugin supports following methods: toggle.
 
 
 ### Select

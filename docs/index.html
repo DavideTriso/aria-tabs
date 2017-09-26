@@ -12,7 +12,7 @@
       margin: auto;
       font-family: sans-serif;
     }
-    
+
     .btn {
       display: block;
       max-width: 300px;
@@ -25,12 +25,12 @@
       border: 1px solid #510cad;
       margin: 40px auto;
     }
-    
+
     .btn:hover,
     .btn:focus {
       background-color: #510cad;
     }
-    
+
     .btn:avtive {
       background-color: #6216c9;
     }
@@ -38,6 +38,28 @@
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="aria-tabs.js"></script>
+  <script>
+
+  $(document).ready(function () {
+    'use strict';
+    $(window).on('ariaTabs.initialised', function (event, element) {
+      console.log(element + 'init');
+    });
+
+    $('.tab-group').ariaTabs({
+      contentRole: ['document', 'application', 'document'],
+    });
+
+    $(window).on('ariaTabs.select', function (event, element, index) {
+      console.log(index);
+    });
+
+    $(window).on('ariaTabs.deselect', function (event, element, index) {
+      console.log(index);
+    });
+  });
+
+  </script>
 </head>
 
 <body>
