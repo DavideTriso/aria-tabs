@@ -108,6 +108,6 @@ gulp.task('watchHTML', function () {
 
 gulp.task('watchAll', function () {
   gulp.watch('src/js/*.js', ['js']);
-  gulp.watch('src/scss/*.scss', ['scss']);
-  gulp.watch('src/html/*.html', ['js']);
+  gulp.watch('src/scss/**/*.scss', ['scss']);
+  gulp.watch('src/html/*.html', ['html']);
 });

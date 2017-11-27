@@ -1,0 +1,24 @@
+//-------------------------------
+//MODIFIERS
+//-------------------------------
+
+.tab-group__tab-btn_selected {
+  background-color: #d8d8d8;
+  @extend %color-black;
+}
+
+.tab-group__tabpanel_selected {
+  //
+}
+//
+//justify tabs with flexbox
+
+.tab-group__tab-ul_justify {
+  @extend %align-items-stretch;
+  @extend %display-flex;
+  @extend %flex-wrap-nowrap;
+
+  .tab-group__tab-li {
+    flex: 1 1 auto;
+  }
+}

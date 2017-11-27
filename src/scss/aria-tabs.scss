@@ -1,60 +1,9 @@
-//-------------------------------
-//BLOCK
-//-------------------------------
-.tab-group {
-  padding: 1rem 0;
-  font-family: sans-serif;
-}
-//-------------------------------
-//ELEMENTS
-//-------------------------------
-.tab-group__tab-ul {
-  margin: 0;
-  list-style: none;
-  padding: 0;
-  height: 2.8rem;
-}
-.tab-group__tab-li {
-  float: left;
-}
-.tab-group__tab-btn {
-  background-color: #393939;
-  border: 0.01rem solid #d8d8d8;
-  color: #fff;
-  margin: 0;
-  padding: 1rem 4rem;
-  width: 100%;
-}
-.tab-group__tabs-cont {
-  //
-}
-.tab-group__tabpanel {
-  border-width: 0.01rem;
-  border-color: #393939;
-  border-style: solid;
-}
-.tab-group__tab-content {
-  padding: 3rem 2rem;
-}
-//-------------------------------
-//MODIFIERS
-//-------------------------------
-.tab-group__tab-btn_selected {
-  background-color: #d8d8d8;
-  color: #000;
-}
-.tab-group__tabpanel_selected {
-  //
-}
-//justify tabs with flexbox
-.tab-group__tab-ul_justify {
-  align-items: stretch;
-  display: flex;
-  flex-wrap: nowrap;
-  .tab-group__tab-li {
-    width: 100%;
-  }
-  .tab-group__tab-btn {
-    height: 100%;
-  }
-}
+@import '../../node_modules/t-css-framework/settings/import';
+@import '../../node_modules/t-css-framework/functions/import';
+@import '../../node_modules/t-css-framework/css-placeholders/import';
+@import '../../node_modules/t-css-framework/responsive-helpers/import';
+@import '../../node_modules/t-css-framework/ui-helpers/import';
+@import '../../node_modules/t-css-framework/grid/import';
+@import "tabs/tab-group";
+@import "tabs/tab-group__elements";
+@import "tabs/tab-group_modifiers";

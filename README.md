@@ -1,11 +1,12 @@
 # ARIA TABS
 
-jQuery plugin for **user-friendly** and **accessible** tab-widgets. **WAI ARIA 1.1** compliant. [Go to demo page](https://davidetriso.github.io/aria-tabs/).
+HTML, CSS and JS **user-friendly** and **accessible** tab-component for scalable projects. **WAI ARIA 1.1** compliant. [Go to demo page](https://davidetriso.github.io/aria-tabs/) or [check on npm](https://www.npmjs.com/package/t-aria-tabs).
 
+* Developed following BEM methodology
 * User-friendly and accessible
-* Only 3KB (minified).
-* Runs in strict mode.
-* Compatible with amd and require.js
+* Only 4KB JS (minified)
+* JS plugin runs in strict mode
+* Compatible with UMD
 
 ## Dependencies
 
@@ -17,6 +18,7 @@ Developed and tested with jQuery 3.2.1
 
 * Tested on **Google Chrome 57** / macOS Sierra 10.
 * Tested on **Safari for iOS 10.3.x** / iPhone 5s.
+* Tested on **Google Chrome 60** / Windows 10.
 
 ## Options
 
@@ -36,6 +38,15 @@ contentRole | document | token, array of tokens | Role of tab-panels's content. 
 fadeSpeed | 300 | int (>= 0) | Speed of the fade-in animation of a tab-panel.
 cssTransitions | false | bool | Use css transitions to show and hide a tab-panel instead of jQuery fade animations. Read section 'Using CSS transitions' for more informations.
 verticalMode | false | bool | Enable vertical mode for tab-list: set `aria-orientation` to `vertical`and enable navigation with up and down arrow keys. (Use css to vertically stack tabs).
+
+## Installation
+
+Download the package from **GitHub** and get the compiled files from the `dist` folder.
+
+The plugin is also available on **npm**:
+```
+npm install t-aria-tabs
+```
 
 
 ## Usage

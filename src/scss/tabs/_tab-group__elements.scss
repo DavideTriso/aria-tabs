@@ -1,0 +1,45 @@
+//-------------------------------
+//ELEMENTS
+//-------------------------------
+
+.tab-group__tab-ul {
+  @extend %align-items-stretch;
+  @extend %justify-content-flex-start;
+  @extend %display-flex;
+  @extend %flex-wrap-nowrap;
+  @extend %margin-0;
+  @extend %list-style-none;
+  @extend %padding-0;
+  height: 2.8rem;
+}
+
+.tab-group__tab-li {
+  flex: 0 1 auto;
+}
+
+.tab-group__tab-btn {
+  background-color: #393939;
+  @include border(#d8d8d8, 0, 0.01rem);
+  @extend %border-style-solid;
+  color: #fff;
+  @extend %height-100;
+  @extend %margin-0;
+  @extend %r-ptb_4;
+  @extend %r-plr_12;
+  @extend %width-100;
+}
+
+.tab-group__tabs-cont {
+  //
+}
+
+.tab-group__tabpanel {
+  @include border(#393939, skip, 0.01rem);
+  @extend %border-style-solid;
+}
+
+.tab-group__tab-content {
+  padding: 3rem 2rem;
+  @extend %r-ptb_12;
+  @extend %r-plr_8;
+}

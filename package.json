@@ -1,6 +1,8 @@
 {
-  "name": "aria-tabs",
+  "name": "t-aria-tabs",
+  "version": "1.2.0",
   "license": "MIT",
+  "description": "HTML, CSS and JS user-friendly and accessible tab-component for scalable projects",
   "repository": {
     "type": "git",
     "url": "git://github.com/davidetriso/aria-tabs.git"
@@ -16,5 +18,7 @@
     "gulp-uglify": "^3.0.0",
     "require-dir": "^0.3.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "t-css-framework": "^0.2.4"
+  }
 }
