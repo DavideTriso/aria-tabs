@@ -1,0 +1,124 @@
+//BLOCK
+$tab-group--padding: (
+  top   : 0.3rem,
+  bottom: 0.3rem
+)
+!default;
+
+//ELEMENTS
+
+//tab-ul
+$tab-group__tab-ul--flexPositioning: (
+  alignItems    : flex-end,
+  justifyContent: center,
+  flexWrap      : nowrap
+)
+!default;
+$tab-group__tab-ul--background: (
+  backgroundColor: #cd2f2f
+)
+!default;
+$tab-group__tab-ul--border: ()
+!default;
+$tab-group__tab-ul--margin: (
+  all: 0
+)
+!default;
+$tab-group__tab-ul--padding: (
+  all: 0
+)
+!default;
+$tab-group__tab-ul--sizes: (
+  height: 3rem
+)
+!default;
+
+//tab-li
+
+//tab-btn
+$tab-group__tab-btn--background: (
+  backgroundColor: transparent
+)
+!default;
+$tab-group__tab-btn--border: (
+  borderSyle  : solid,
+  borderWidth : 0 0 0.3rem 0,
+  borderRadius: 0,
+  borderColor : transparent
+)
+!default;
+$tab-group__tab-btn--margin: (
+  all: 0
+)
+!default;
+$tab-group__tab-btn--padding: (
+  top   : 0.2rem,
+  bottom: 0.2rem,
+  left  : 1rem,
+  right : 1rem
+)
+!default;
+$tab-group__tab-btn--sizes: (
+  height  : 100%,
+  width   : 100%,
+  minWidth: 5rem
+)
+!default;
+$tab-group__tab-btn--text: (
+  color: #fff
+)
+!default;
+$tab-group__tab-btn--font: (
+  fontSize: 0.9rem
+)
+!default;
+//hover and focus
+$tab-group__tab-btnPhover--background: ()
+!default;
+$tab-group__tab-btnPhover--border: ()
+!default;
+$tab-group__tab-btnPhover--text: (
+  color: #202020
+)
+!default;
+//focus
+$tab-group__tab-btnPfocus--outline: (
+  outline: none
+)
+!default;
+
+//modifiers
+//selected
+$tab-group__tab-btn_selected--background: ()
+!default;
+$tab-group__tab-btn_selected--border: (
+  borderColor: #fff
+)
+!default;
+$tab-group__tab-btn_selected--text: ()
+!default;
+//hover and focus
+$tab-group__tab-btn_selectedPhover--background: ()
+!default;
+$tab-group__tab-btn_selectedPhover--border: ()
+!default;
+$tab-group__tab-btn_selectedPhover--text: (
+  color: #202020
+)
+!default;
+
+//tabs-cont
+
+//tabpanel
+$tab-group__tabpanel--border: (
+  borderColor: #e0dddd,
+  borderStyle: solid,
+  borderWidth: 0 0.05rem 0.05rem 0.05rem
+)
+!default;
+
+//tab-content
+$tab-group__tab-content--padding: (
+  all: 1rem
+)
+!default;

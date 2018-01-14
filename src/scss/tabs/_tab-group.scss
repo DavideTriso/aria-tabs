@@ -3,5 +3,5 @@
 //-------------------------------
 
 .tab-group {
-  @extend %r-ptb_4;
+  @include padding($tab-group--padding);
 }

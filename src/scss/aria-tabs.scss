@@ -1,9 +1,12 @@
-@import '../../node_modules/t-css-framework/settings/import';
-@import '../../node_modules/t-css-framework/functions/import';
-@import '../../node_modules/t-css-framework/css-placeholders/import';
-@import '../../node_modules/t-css-framework/responsive-helpers/import';
-@import '../../node_modules/t-css-framework/ui-helpers/import';
-@import '../../node_modules/t-css-framework/grid/import';
+//import t-css-framework modules
+@import "../../node_modules/t-css-framework/src/settings/settings.import";
+@import "../../node_modules/t-css-framework/src/functions/functions.import";
+@import "../../node_modules/t-css-framework/src/helpers/helpers.import";
+
+//import tab modules
+@import "tabs/tab-group.variables";
 @import "tabs/tab-group";
 @import "tabs/tab-group__elements";
-@import "tabs/tab-group_modifiers";
+//modifiers
+@import "tabs/modifiers/tab-group__tab-li_fill";
+@import "tabs/modifiers/tab-group__tab-btn_selected";

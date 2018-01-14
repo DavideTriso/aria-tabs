@@ -1,0 +1,16 @@
+//-------------------------------
+//MODIFIERS
+//-------------------------------
+
+.tab-group__tab-btn_selected {
+  @include background($tab-group__tab-btn_selected--background);
+  @include border($tab-group__tab-btn_selected--border);
+  @include text($tab-group__tab-btn_selected--text);
+
+  &:focus,
+  &:hover {
+    @include background($tab-group__tab-btn_selectedPhover--background);
+    @include border($tab-group__tab-btn_selectedPhover--border);
+    @include text($tab-group__tab-btn_selectedPhover--text);
+  }
+}

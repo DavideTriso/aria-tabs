@@ -3,14 +3,14 @@
 //-------------------------------
 
 .tab-group__tab-ul {
-  @extend %align-items-stretch;
-  @extend %justify-content-flex-start;
-  @extend %display-flex;
-  @extend %flex-wrap-nowrap;
-  @extend %margin-0;
-  @extend %list-style-none;
-  @extend %padding-0;
-  height: 2.8rem;
+  list-style: none;
+  @include background($tab-group__tab-ul--background);
+  @include border($tab-group__tab-ul--border);
+  @include flexPositioning($tab-group__tab-ul--flexPositioning);
+  display   : flex;
+  @include margin($tab-group__tab-ul--margin);
+  @include padding($tab-group__tab-ul--padding);
+  @include sizes($tab-group__tab-ul--sizes);
 }
 
 .tab-group__tab-li {
@@ -18,15 +18,24 @@
 }
 
 .tab-group__tab-btn {
-  background-color: #393939;
-  @include border(#d8d8d8, 0, 0.01rem);
-  @extend %border-style-solid;
-  color: #fff;
-  @extend %height-100;
-  @extend %margin-0;
-  @extend %r-ptb_4;
-  @extend %r-plr_12;
-  @extend %width-100;
+  @include background($tab-group__tab-btn--background);
+  @include border($tab-group__tab-btn--border);
+  @include text($tab-group__tab-btn--text);
+  @include font($tab-group__tab-btn--font);
+  @include margin($tab-group__tab-btn--margin);
+  @include padding($tab-group__tab-btn--padding);
+  @include sizes($tab-group__tab-btn--sizes);
+
+  &:focus,
+  &:hover {
+    @include background($tab-group__tab-btnPhover--background);
+    @include border($tab-group__tab-btnPhover--border);
+    @include text($tab-group__tab-btnPhover--text);
+  }
+
+  &:focus {
+    @include outline($tab-group__tab-btnPfocus--outline);
+  }
 }
 
 .tab-group__tabs-cont {
@@ -34,12 +43,9 @@
 }
 
 .tab-group__tabpanel {
-  @include border(#393939, skip, 0.01rem);
-  @extend %border-style-solid;
+  @include border($tab-group__tabpanel--border);
 }
 
 .tab-group__tab-content {
-  padding: 3rem 2rem;
-  @extend %r-ptb_12;
-  @extend %r-plr_8;
+  @include padding($tab-group__tab-content--padding);
 }

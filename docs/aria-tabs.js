@@ -242,51 +242,51 @@ SOFTWARE.
        * by checking the pressed key and the index of the currenty selected tab
        */
       switch (pressedKey) {
-        case 37: //left
+      case 37: //left
+        if (focussedElementIndex === 0) {
+          newTab = elementsLenght - 1;
+        } else {
+          newTab = focussedElementIndex - 1;
+        }
+        break;
+      case 39: //right
+        if (focussedElementIndex === (elementsLenght - 1)) {
+          newTab = 0;
+        } else {
+          newTab = focussedElementIndex + 1;
+        }
+        break;
+      case 36: //home
+        newTab = 0;
+        break;
+      case 35: //end
+        newTab = elementsLenght;
+        break;
+      case 38: //top
+        if (vertical) { //only if acting in vertical mode
           if (focussedElementIndex === 0) {
             newTab = elementsLenght - 1;
           } else {
             newTab = focussedElementIndex - 1;
           }
-          break;
-        case 39: //right
+        } else {
+          newTab = false;
+        }
+        break;
+      case 40: //bottom
+        if (vertical) { //only if acting in vertical mode
           if (focussedElementIndex === (elementsLenght - 1)) {
             newTab = 0;
           } else {
             newTab = focussedElementIndex + 1;
           }
-          break;
-        case 36: //home
-          newTab = 0;
-          break;
-        case 35: //end
-          newTab = elementsLenght;
-          break;
-        case 38: //top
-          if (vertical) { //only if acting in vertical mode
-            if (focussedElementIndex === 0) {
-              newTab = elementsLenght - 1;
-            } else {
-              newTab = focussedElementIndex - 1;
-            }
-          } else {
-            newTab = false;
-          }
-          break;
-        case 40: //bottom
-          if (vertical) { //only if acting in vertical mode
-            if (focussedElementIndex === (elementsLenght - 1)) {
-              newTab = 0;
-            } else {
-              newTab = focussedElementIndex + 1;
-            }
-          } else {
-            newTab = false;
-          }
-          break;
-        default:
+        } else {
           newTab = false;
-          break;
+        }
+        break;
+      default:
+        newTab = false;
+        break;
       }
 
       /*

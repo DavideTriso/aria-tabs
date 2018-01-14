@@ -34,31 +34,28 @@
     .btn:avtive {
       background-color: #6216c9;
     }
-
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="aria-tabs.js"></script>
   <script>
+    $(document).ready(function() {
+      'use strict';
+      $(window).on('ariaTabs.initialised', function(event, element) {
+        console.log(element + 'init');
+      });
 
-  $(document).ready(function () {
-    'use strict';
-    $(window).on('ariaTabs.initialised', function (event, element) {
-      console.log(element + 'init');
+      $('.tab-group').ariaTabs({
+        contentRole: ['document', 'application', 'document'],
+      });
+
+      $(window).on('ariaTabs.select', function(event, element, index) {
+        console.log(index);
+      });
+
+      $(window).on('ariaTabs.deselect', function(event, element, index) {
+        console.log(index);
+      });
     });
-
-    $('.tab-group').ariaTabs({
-      contentRole: ['document', 'application', 'document'],
-    });
-
-    $(window).on('ariaTabs.select', function (event, element, index) {
-      console.log(index);
-    });
-
-    $(window).on('ariaTabs.deselect', function (event, element, index) {
-      console.log(index);
-    });
-  });
-
   </script>
 </head>
 
@@ -67,14 +64,14 @@
   <h2>Demo 1</h2>
   <div class="tab-group">
     <nav class="tab-group__tab-nav">
-      <ul class="tab-group__tab-ul tab-group__tab-ul_justify">
-        <li class="tab-group__tab-li">
+      <ul class="tab-group__tab-ul">
+        <li class="tab-group__tab-li tab-group__tab-li_fill">
           <button type="button" class="tab-group__tab-btn">tab 1</button>
         </li>
-        <li class="tab-group__tab-li">
+        <li class="tab-group__tab-li tab-group__tab-li_fill">
           <button type="button" class="tab-group__tab-btn">tab 2</button>
         </li>
-        <li class="tab-group__tab-li">
+        <li class="tab-group__tab-li tab-group__tab-li_fill">
           <button type="button" class="tab-group__tab-btn">tab 3</button>
         </li>
       </ul>
@@ -83,20 +80,23 @@
       <div class="tab-group__tabpanel">
         <div class="tab-group__tab-content">
           <h3>TAB 1</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           <button type="button">Focus test</button>
         </div>
       </div>
       <div class="tab-group__tabpanel">
         <div class="tab-group__tab-content">
           <h3>TAB 2</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
         </div>
       </div>
       <div class="tab-group__tabpanel">
         <div class="tab-group__tab-content">
           <h3>TAB 3</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
         </div>
       </div>
     </div>
@@ -120,19 +120,22 @@
       <div class="tab-group__tabpanel">
         <div class="tab-group__tab-content">
           <h3>TAB 1</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
         </div>
       </div>
       <div class="tab-group__tabpanel">
         <div class="tab-group__tab-content">
           <h3>TAB 2</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
         </div>
       </div>
       <div class="tab-group__tabpanel">
         <div class="tab-group__tab-content">
           <h3>TAB 3</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
       </div>
     </div>
